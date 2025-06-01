@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yönetici Girişi - Online Sanat Sergisi</title>
+    <style>
+        /* Genel HTML ve Body Ayarları - Yapışkan Footer için Temel */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%; /* HTML ve Body'nin tarayıcı yüksekliğinin %100'ünü almasını sağlar */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Açık gri genel arka plan rengi */
+            display: flex;
+            flex-direction: column; /* İçeriği dikey sıralar (header, main, footer) */
+            min-height: 100vh; /* Ekran yüksekliğinin tamamını kapla */
+        }
+
+        /* Header (Başlık) Bölümü Stilleri */
+        header {
+            background-color: #333; /* Koyu gri arka plan */
+            color: white;
+            padding: 10px 20px; /* Kullanıcı girişindeki padding değerini kullandık */
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            padding-bottom: 5px; /* Kullanıcı girişindeki padding değerini kullandık */
+        }
+
+        /* Navigasyon (Menü) Bölümü Stilleri */
+        nav ul {
+            list-style: none; /* Madde işaretlerini kaldırır */
+            padding: 0;
+            margin: 0;
+            display: flex; /* Menü öğelerini yatay hizalar */
+            justify-content: center; /* Menü öğelerini ortaya hizalar */
+            flex-wrap: wrap; /* Küçük ekranlarda alt alta geçsin */
+        }
+
+        nav ul li {
+            margin: 0 15px; /* Menü öğeleri arasına boşluk bırakır */
+            position: relative; /* Eğer alt menüler eklenecekse kullanışlı */
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none; /* Alt çizgiyi kaldırır */
+            padding: 8px 0; /* Kullanıcı girişindeki padding değerini kullandık */
+            display: block; /* Tıklama alanını genişletir */
+            transition: color 0.3s ease; /* Hover efekti için yumuşak geçiş */
+        }
+
+        nav ul li a:hover {
+            color: #ddd; /* Hover durumunda daha açık gri */
+        }
+
+        /* Ana İçerik Bölümü Stilleri - Kullanıcı girişindeki .login-container yapısına uygun */
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* İçeriği yatayda ortalar */
+            justify-content: center; /* Dikeyde ortalar (eğer içerik kısa ise) */
+            flex-grow: 1; /* Main içeriğin kalan alanı kaplamasını ve footer'ı aşağı itmesini sağlar */
+            padding: 20px;
+            box-sizing: border-box; /* Padding'in genişliğe dahil olmasını sağlar */
+        }
+
+        /* Yönetici Giriş Kutusu Stilleri */
+        .admin-login-form { /* Sınıf adını değiştirdik: .login-form yerine .admin-login-form */
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .admin-login-form h1 { /* h1 kullanıldı, önceki h2 idi */
+            text-align: center;
+            color: #333; /* Renk, kullanıcı girişindeki ile tutarlı */
+            margin-bottom: 20px;
+        }
+
+        .admin-login-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .admin-login-form input[type="text"],
+        .admin-login-form input[type="password"] {
+            width: 100%;
+            padding: 8px; /* Kullanıcı girişindeki padding değeri */
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px; /* Kullanıcı girişindeki border-radius */
+            box-sizing: border-box;
+        }
+
+        .admin-login-form button { /* Sınıf adını değiştirdik: .login-button yerine direkt button */
+            background-color: #5cb85c; /* Kullanıcı girişindeki renk */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .admin-login-form button:hover {
+            background-color: #4cae4c; /* Hover rengi */
+        }
+
+        .message { /* Mesaj stilleri */
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .message.valid {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.invalid {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Footer Bölümü Stilleri */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0; /* Kullanıcı girişindeki padding değeri */
+            width: 100%;
+            margin-top: auto; /* Footer'ı sayfanın en altına itmek için Flexbox özelliği */
+        }
+
+        /* Global .container sınıfı (eğer sayfa genelinde içeriği ortalamak isterseniz) */
+        /* Bu sayfada main'e display:flex verilip ortalandığı için header ve footer için de kullanılabilir */
+        .container {
+            max-width: 960px; /* Ortalama bir genişlik */
+            margin: 0 auto;
+            padding: 0 20px; /* Yan boşluklar */
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container"> <h1>Online Sanat Sergisi</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Anasayfa</a></li>
+                    <li><a href="sergiyi_kesfet.html">Sergiyi Keşfet</a></li>
+                    <li><a href="sanatcilar.html">Sanatçılar</a></li>
+                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                    </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="admin-login-form"> <h1>Yönetici Girişi</h1> <form id="yoneticiGirisForm">
+                <label for="yoneticiadi">Yönetici Adı:</label>
+                <input type="text" id="yoneticiadi" name="yoneticiadi" required>
+
+                <label for="yoneticisifre">Şifre:</label>
+                <input type="password" id="yoneticisifre" name="yoneticisifre" required>
+
+                <p id="yoneticiGirisMesaj" class="message"></p> <button type="submit">Giriş Yap</button>
+            </form>
+            </div>
+    </main>
+
+    <footer>
+        <div class="container"> <p>&copy; 2025 Online Sanat Sergisi</p>
+        </div>
+    </footer>
+
+    <script src="yonetici_giris.js"></script>
+</body>
+</html>

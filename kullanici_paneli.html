@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Paneli - Online Sanat Sergisi</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Bu stilleri mevcut <style> bloğunuza ekleyin */
+        html, body {
+            height: 100%; /* html ve body'nin tam yüksekliği almasını sağlar */
+            margin: 0;
+            display: flex; /* Flexbox'ı etkinleştir */
+            flex-direction: column; /* Öğeleri dikey olarak sırala */
+        }
+
+        .user-panel-container {
+            padding: 20px;
+            text-align: center;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex-grow: 1; /* Ana içeriğin büyümesini ve footer'ı aşağı itmesini sağlar */
+        }
+
+        .user-panel-header {
+            margin-bottom: 30px;
+        }
+
+        .user-panel-header h2 {
+            color: rgb(113, 44, 113);
+            margin-top: 0;
+        }
+
+        .user-info {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .user-info p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .user-actions {
+            margin-bottom: 30px;
+        }
+
+        .user-actions a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+
+        .user-actions a:hover {
+            background-color: #b30092;
+        }
+/* Sepet İkonu için CSS */
+        .cart-icon {
+            height: 24px; /* İkonun yüksekliği */
+            vertical-align: middle; /* Metinle dikey hizalama */
+            margin-right: 5px; /* Metinle arasında boşluk */
+        }
+        .logout-button {
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+
+        /* Footer'a özel stiller */
+        footer {
+            background-color: #333; /* Örnek arkaplan rengi */
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            width: 100%;
+            margin-top: auto; /* Footer'ı alta iter */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Online Sanat Sergisi</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+                <li><a href="kullanici_giris.html">Kullanıcı Girişi</a></li>
+                  <li><a href="sepet.html">
+                        <img src="sepet_ikon.jpg" alt="Sepetim" class="cart-icon"> Sepetim
+                <li id="favorites-link-li" style="display: none;"><a href="favorilerim.html">Favorilerim</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <main class="user-panel-container">
+        <div class="user-panel-header">
+            <h2 id="welcome-message">Hoş Geldiniz!</h2>
+            <p>Online sanat sergimize giriş yaptınız.</p>
+        </div>
+
+        <div class="user-info">
+            <h3>Kullanıcı Bilgileri</h3>
+            <p><strong>Kullanıcı Adı:</strong> <span id="display-username">Yükleniyor...</span></p>
+            <p><strong>E-posta:</strong> <span id="display-email">Yükleniyor...</span></p>
+        </div>
+
+        <div class="user-actions">
+            <h3>Yapabilecekleriniz</h3>
+            <p>Sergiyi keşfedebilir, favori eserlerinizi kaydedebilir veya sanatçılar hakkında daha fazla bilgi edinebilirsiniz.</p>
+            <a href="sergiyi_kesfet.html">Sergiyi Keşfet</a>
+            <a href="favorilerim.html">Favori Eserlerim </a>
+            <a href="sanatcilar.html">Sanatçılar</a>
+        </div>
+
+        <button class="logout-button" id="panel-logout-button">Çıkış Yap</button>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Online Sanat Sergisi</p>
+    </footer>
+
+    <script src="kullanici_giris.js"></script>
+    <script>
+        // ... (Bu script bloğunun içeriği aynen kalacak, çünkü dinamik veri çekme ve logout işlemleri burada) ...
+        document.addEventListener('DOMContentLoaded', function() {
+            const welcomeMessage = document.getElementById('welcome-message');
+            const displayUsername = document.getElementById('display-username');
+            const displayEmail = document.getElementById('display-email');
+            const panelLogoutButton = document.getElementById('panel-logout-button');
+
+            const loggedInUsername = localStorage.getItem('loggedInUser');
+
+            if (loggedInUsername) {
+                // 'users' dizisi, 'kullanici_giris.js' dosyasından global olarak erişilebilir olmalı.
+                const currentUser = users.find(user => user.username === loggedInUsername);
+
+                if (currentUser) {
+                    welcomeMessage.textContent = `Hoş Geldiniz, ${currentUser.username}!`;
+                    displayUsername.textContent = currentUser.username;
+                    displayEmail.textContent = currentUser.email || 'Belirtilmemiş';
+                } else {
+                    welcomeMessage.textContent = `Hoş Geldiniz! Kullanıcı bilgisi bulunamadı.`;
+                    displayUsername.textContent = 'Bilinmiyor';
+                    displayEmail.textContent = 'Bilinmiyor';
+                    localStorage.removeItem('loggedInUser');
+                    alert('Kullanıcı bilgisi bulunamadı veya geçersiz. Lütfen tekrar giriş yapın.');
+                    window.location.href = 'kullanici_giris.html';
+                }
+            } else {
+                alert('Bu sayfaya erişim için giriş yapmalısınız.');
+                window.location.href = 'kullanici_giris.html';
+            }
+
+            if (panelLogoutButton) {
+                panelLogoutButton.addEventListener('click', function() {
+                    localStorage.removeItem('loggedInUser');
+                    alert('Başarıyla çıkış yapıldı.');
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

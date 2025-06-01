@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Hesaplarını Yönet - Yönetici Paneli</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Sadece bu sayfaya özgü stil değişiklikleri veya eklemeler */
+        .admin-panel-container {
+            padding: 20px;
+            max-width: 1200px; /* Genişliği artırdım, daha fazla sütun ve buton için */
+            margin: 50px auto;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative; /* Geri butonu için */
+        }
+
+        .admin-panel-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative; /* Geri butonu için */
+        }
+
+        .admin-panel-header h2 {
+            color: #28a745;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .admin-panel-header p {
+            color: #555;
+            font-size: 1.1em;
+            margin-bottom: 25px;
+        }
+
+        /* Kullanıcı tablosu ve ilgili stiller */
+        .user-management-container { /* Önceki user-list-container'dan isim değişikliği */
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .user-table th,
+        .user-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .user-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .user-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .action-buttons {
+            white-space: nowrap; /* Butonların yan yana kalmasını sağlar */
+        }
+
+        .action-buttons a,
+        .action-buttons button {
+            display: inline-block;
+            padding: 8px 12px;
+            margin-right: 5px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .edit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+
+        .add-new-user-button { /* Yeni kullanıcı ekle butonu */
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745; /* Yeşil ton */
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .add-new-user-button:hover {
+            background-color: #1e7e34;
+        }
+
+        /* Geri butonu stilleri */
+        .back-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #6c757d; /* Gri ton */
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+        }
+
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+
+        /* Navigasyon ve Footer stilleri (style.css'den geliyorsa bu sayfadan silin) */
+        /* Eğer style.css dosyanızda yoksa, bu kısımları style.css'e taşımanız önerilir. */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            padding-bottom: 5px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 0;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ddd;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Online Sanat Sergisi</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Anasayfa</a></li>
+                    <li><a href="sergiyi_kesfet.html">Sergiyi Keşfet</a></li>
+                    <li><a href="sanatcilar.html">Sanatçılar</a></li>
+                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                    <li><a href="giris.html">Giriş Yap</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="admin-panel-container">
+            <div class="admin-panel-header">
+                <a href="yonetici_paneli.html" class="back-button">Yönetici Paneline Geri Dön</a>
+                <h2>Kullanıcı Hesaplarını Yönet</h2>
+                <a href="kullanici_ekle.html" class="add-new-user-button">Yeni Kullanıcı Ekle</a>
+            </div>
+
+            <div class="user-management-container">
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Kullanıcı Adı</th>
+                            <th>E-posta</th>
+                            <th>Kayıt Tarihi</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody id="kullaniciListesi">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Online Sanat Sergisi</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const kullaniciListesiTablosu = document.getElementById('kullaniciListesi');
+
+            // Örnek kullanıcı verileri (gerçek uygulamada sunucudan alınmalı)
+            let kullanicilar = [
+                { id: 1, kullaniciAdi: 'admin', eposta: 'admin@example.com', kayitTarihi: '2024-01-15' },
+                { id: 2, kullaniciAdi: 'ahmet.demir', eposta: 'ahmet.demir@example.com', kayitTarihi: '2024-02-20' },
+                { id: 3, kullaniciAdi: 'zeynep.kaya', eposta: 'zeynep.kaya@example.com', kayitTarihi: '2024-03-01' },
+                { id: 4, kullaniciAdi: 'mehmet.yilmaz', eposta: 'mehmet.yilmaz@example.com', kayitTarihi: '2024-04-10' },
+                { id: 5, kullaniciAdi: 'ayse.can', eposta: 'ayse.can@example.com', kayitTarihi: '2024-05-10' },
+                { id: 6, kullaniciAdi: 'ali.guler', eposta: 'ali.guler@example.com', kayitTarihi: '2024-06-10' },
+                { id: 7, kullaniciAdi: 'fatma.celik', eposta: 'fatma.celik@example.com', kayitTarihi: '2024-07-11' },
+                { id: 8, kullaniciAdi: 'can.kara', eposta: 'can.kara@example.com', kayitTarihi: '2024-08-18' },
+                { id: 9, kullaniciAdi: 'elif.uzun', eposta: 'elif.uzun@example.com', kayitTarihi: '2024-09-21' },
+               { id: 10, kullaniciAdi: 'deniz.sahin', eposta: 'deniz.sahin@example.com', kayitTarihi: '2024-10-25' },
+               { id: 11, kullaniciAdi: 'mustafa.yildiz', eposta: 'mustafa.yildiz@example.com', kayitTarihi: '2024-10-9' },
+
+            ];
+
+            // Kullanıcıları tabloya ekleme fonksiyonu
+            function kullanicilariListele(liste) {
+                kullaniciListesiTablosu.innerHTML = ''; // Önce tabloyu temizle
+                liste.forEach(kullanici => {
+                    const row = kullaniciListesiTablosu.insertRow();
+                    row.id = `user-row-${kullanici.id}`; // Her satıra bir ID ekle, silerken kolay bulmak için
+
+                    const idCell = row.insertCell();
+                    const kullaniciAdiCell = row.insertCell();
+                    const epostaCell = row.insertCell();
+                    const kayitTarihiCell = row.insertCell();
+                    const islemlerCell = row.insertCell();
+
+                    idCell.textContent = kullanici.id;
+                    kullaniciAdiCell.textContent = kullanici.kullaniciAdi;
+                    epostaCell.textContent = kullanici.eposta;
+                    kayitTarihiCell.textContent = kullanici.kayitTarihi;
+                    
+                    // İşlemler butonları eklendi
+                    islemlerCell.classList.add('action-buttons');
+                    islemlerCell.innerHTML = `
+                        <a href="kullanici_duzenle.html?id=${kullanici.id}" class="edit-button">Düzenle</a>
+                        <button class="delete-button" data-user-id="${kullanici.id}">Sil</button>
+                    `;
+                });
+
+                // Silme butonlarına olay dinleyici ekle
+                attachDeleteListeners();
+            }
+
+            // Silme butonlarına olay dinleyici ekleyen fonksiyon
+            function attachDeleteListeners() {
+                const deleteButtons = document.querySelectorAll('.delete-button');
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const userId = this.dataset.userId;
+                        kullaniciSil(userId);
+                    });
+                });
+            }
+
+            // Kullanıcı silme fonksiyonu (ŞİMDİLİK SADECE FRONTEND TARAFINDA SİLME İŞLEMİ)
+            // GERÇEK UYGULAMADA BURADA SUNUCUYA İSTEK GÖNDERİLMELİDİR!
+            window.kullaniciSil = function(id) {
+                if (confirm(`ID ${id} olan kullanıcıyı silmek istediğinize emin misiniz?`)) {
+                    console.log(`ID ${id} olan kullanıcı siliniyor... (Gerçek uygulamada sunucuya DELETE isteği gönderilir)`);
+
+                    // **SADECE FRONTEND İÇİN GEÇİCİ SİLME İŞLEMİ (BACKEND'İNİZ YOKSA)**
+                    const initialLength = kullanicilar.length;
+                    kullanicilar = kullanicilar.filter(kullanici => kullanici.id !== id);
+                    if (kullanicilar.length < initialLength) {
+                        alert('Kullanıcı başarıyla silindi (sadece görüntüde)!');
+                        const silinenSatir = document.getElementById(`user-row-${id}`);
+                        if (silinenSatir) {
+                            silinenSatir.remove();
+                        }
+                    } else {
+                        alert('Kullanıcı bulunamadı veya silinemedi.');
+                    }
+                    // **GEÇİCİ SİLME İŞLEMİ SONU**
+                }
+            };
+
+            // Sayfa yüklendiğinde kullanıcıları listele
+            kullanicilariListele(kullanicilar);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorilerim - Online Sanat Sergisi</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Genel sayfa düzeni (body, header, nav, footer) */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    header {
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+    }
+
+    header h1 {
+        margin: 0;
+        padding-bottom: 5px;
+    }
+
+    nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    nav ul li {
+        margin: 0 15px;
+        position: relative;
+    }
+
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        padding: 8px 0;
+        display: block;
+        transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+        color: #ddd;
+    }
+/* Sepet İkonu için CSS */
+        .cart-icon {
+            height: 24px; /* İkonun yüksekliği */
+            vertical-align: middle; /* Metinle dikey hizalama */
+            margin-right: 5px; /* Metinle arasında boşluk */
+        }
+    /* Favorilerim sayfasına özel stiller */
+    main { /* Buradaki "main" etiketini hedefliyoruz */
+        flex-grow: 1;
+        padding: 20px;
+        max-width: 1200px; /* İçeriğin maksimum genişliği, istediğiniz gibi ayarlayın */
+        width: 90%; /* Daha dar ekranlarda %90 genişlik */
+        margin: 20px auto; /* Üst/alt 20px, sağ/sol otomatik (ortalar) */
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+    }
+
+    /* `favorites-container` sınıfına sahip `main` etiketi artık ortalı, bu başlığı da ortalayalım */
+    .favorites-container h1 {
+        text-align: center; /* Başlığı ortala */
+        color: #333;
+        margin-bottom: 30px;
+        /* padding-left: 0; /* Eğer varsa ekstra padding'i kaldır - zaten kaldırılmış */
+    }
+
+    #favorites-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        padding: 0;
+        list-style: none;
+        /* ANAHTAR DEĞİŞİKLİK: Favori kartlarını yatayda ortala */
+        justify-items: center; /* Grid öğelerini hücre içinde ortalar */
+        /* Eğer grid'deki tüm öğeleri ortalamak istiyorsak, justify-content yerine justify-items kullanılır. */
+        /* Alternatif olarak, eğer kartlarınızın kendisi ortalı ama grid boşluk veriyorsa: */
+        /* place-items: center; */
+    }
+
+    .favorite-artwork-item {
+        border: 1px solid #eee;
+        border-radius: 8px;
+        text-align: center; /* İçerik hala ortalı kalsın */
+        box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+        background-color: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    }
+
+    .favorite-artwork-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .favorite-artwork-image-container {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        border-bottom: 1px solid #eee;
+    }
+
+    .favorite-artwork-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .favorite-artwork-info {
+        padding: 15px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .favorite-artwork-item h3 {
+        margin-top: 0;
+        color: #007bff;
+        font-size: 1.2em;
+    }
+
+    .favorite-artwork-item p {
+        color: #555;
+        font-size: 0.95em;
+        margin-bottom: 15px;
+    }
+
+    .remove-from-favorites {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: auto;
+        transition: background-color 0.3s ease;
+        width: calc(100% - 30px);
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+    .remove-from-favorites:hover {
+        background-color: #c82333;
+    }
+
+    .no-favorites-message {
+        text-align: center; /* Mesajı ortala */
+        color: #777;
+        font-style: italic;
+        padding: 30px;
+        grid-column: 1 / -1;
+    }
+
+    footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        width: 100%;
+        margin-top: auto;
+    }
+
+    /* Küçük ekranlar için responsive ayarlar */
+    @media (max-width: 768px) {
+        main {
+            max-width: 95vw;
+            margin: 10px auto; /* Küçük ekranlarda da ortalama */
+            padding: 15px;
+        }
+
+        #favorites-list {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            /* justify-items: center; zaten var */
+        }
+
+        nav ul li {
+            margin: 0 8px;
+        }
+
+        nav ul li a {
+            font-size: 0.9em;
+        }
+    }
+</style> 
+</head>
+<body>
+    <header>
+        <h1>Online Sanat Sergisi</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="sergiyi_kesfet.html">Sergiyi Keşfet</a></li>
+                <li><a href="sanatcilar.html">Sanatçılar</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+                <li><a href="sepet.html">
+                        <img src="sepet_ikon.jpg" alt="Sepetim" class="cart-icon"> Sepetim
+                    </a>
+                <li id="favorites-link-li" style="display: none;"><a href="favorilerim.html">Favorilerim</a></li>
+                <li id="logout-button-li" style="display: none;"><button id="logout-button">Çıkış Yap</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="favorites-container">
+        <h1>Favori Eserlerim</h1>
+        <div id="favorites-list">
+            <p class="no-favorites-message">Henüz favori eseriniz bulunmamaktadır.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Online Sanat Sergisi</p>
+    </footer>
+
+    <script src="kullanici_giris.js"></script>
+    
+    <script>
+        // Eser verilerini burada tanımlıyoruz, çünkü favoriler sayfasında resim yoluna ihtiyacımız olacak.
+        const allArtworks = [
+            { id: 'eser1', ad: 'Gül Ebru', sanatci: 'Hatice Fer', tur: 'Ebru Sanatı', fiyat: 1200, gorsel: 'ebru1_kucuk.jpg' },
+            { id: 'eser2', ad: 'Aslan Heykel', sanatci: 'Ali Pek', tur: 'Heykel', fiyat: 3000, gorsel: 'heykel1_kucuk.jpg' },
+            { id: 'eser3', ad: 'Hat', sanatci: 'Ayşe Yıl', tur: 'Hat Sanatı', fiyat: 800, gorsel: 'hat1_kucuk.jpg' },
+            { id: 'eser4', ad: 'Renk Cümbüşü', sanatci: 'Arda Demir', tur: 'Resim', fiyat: 1500, gorsel: 'resim6_kucuk.jpg' },
+            { id: 'eser5', ad: 'Şekiller', sanatci: 'Elif Kaya', tur: 'Dijital Sanat', fiyat: 950, gorsel: 'resim4_kucuk.jpg' },
+            { id: 'eser6', ad: 'Umut Çiçeği', sanatci: 'Maria Pink', tur: 'Resim', fiyat: 1100, gorsel: 'resim2_kucuk.jpg' },
+            { id: 'eser7', ad: 'At Heykeli', sanatci: 'Ali Pek', tur: 'Heykel', fiyat: 2800, gorsel: 'heykel2_kucuk.jpg' },
+            { id: 'eser8', ad: 'Ebru', sanatci: 'Hatice Fer', tur: 'Ebru Sanatı', fiyat: 950, gorsel: 'ebru2_kucuk.jpg' },
+            { id: 'eser9', ad: 'Doğa Resmi', sanatci: 'Arda Demir', tur: 'Resim', fiyat: 900, gorsel: 'resim5_kucuk.jpg' },
+            { id: 'eser10', ad: 'Mandala Motifi', sanatci: 'Elif Kaya', tur: 'Resim', fiyat: 650, gorsel: 'resim8_kucuk.jpg' },
+            { id: 'eser11', ad: 'Ebru Sanati', sanatci: 'Hatice Fer', tur: 'Ebru Sanatı', fiyat: 750, gorsel: 'ebru3_kucuk.jpg' },
+            { id: 'eser12', ad: 'Renklerin Dünyası', sanatci: 'Hatice Fer', tur: 'Ebru Sanatı', fiyat: 980, gorsel: 'ebru4_kucuk.jpg' },
+        ];
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const favoritesListDiv = document.getElementById('favorites-list');
+            const loggedInUser = localStorage.getItem('loggedInUser');
+
+            if (!loggedInUser) {
+                alert('Favorilerinizi görmek için giriş yapmalısınız.');
+                window.location.href = 'kullanici_giris.html';
+                return;
+            }
+
+            const userFavorites = getFavoriteArtworks(loggedInUser);
+
+            if (userFavorites && userFavorites.length > 0) {
+                favoritesListDiv.innerHTML = '';
+                userFavorites.forEach(favoriteArtwork => {
+                    const artworkDetails = allArtworks.find(art => art.id === favoriteArtwork.id);
+
+                    if (artworkDetails) {
+                        const artworkItem = document.createElement('div');
+                        artworkItem.classList.add('favorite-artwork-item');
+                        artworkItem.dataset.artworkId = artworkDetails.id;
+
+                        artworkItem.innerHTML = `
+                            <div class="favorite-artwork-image-container">
+                                <img src="${artworkDetails.gorsel}" alt="${artworkDetails.ad}" class="favorite-artwork-image">
+                            </div>
+                            <div class="favorite-artwork-info">
+                                <h3>${artworkDetails.ad}</h3>
+                                <p>Sanatçı: ${artworkDetails.sanatci}</p>
+                                <p>Tür: ${artworkDetails.tur}</p>
+                                <p>Fiyat: ${artworkDetails.fiyat ? artworkDetails.fiyat + ' TL' : 'Fiyat Belirtilmemiş'}</p>
+                                <button class="remove-from-favorites" data-artwork-id="${artworkDetails.id}" data-artwork-title="${artworkDetails.ad}">Favorilerden Kaldır</button>
+                            </div>
+                        `;
+                        favoritesListDiv.appendChild(artworkItem);
+                    } else {
+                        console.warn(`Eser detayı bulunamadı: ID - ${favoriteArtwork.id}. Yalnızca başlık gösteriliyor.`);
+                        const artworkItem = document.createElement('div');
+                        artworkItem.classList.add('favorite-artwork-item');
+                        artworkItem.innerHTML = `
+                            <div class="favorite-artwork-info">
+                                <h3>${favoriteArtwork.title || 'Bilinmeyen Eser'}</h3>
+                                <p>Detaylar yüklenemedi. Eser ID: ${favoriteArtwork.id}</p>
+                                <button class="remove-from-favorites" data-artwork-id="${favoriteArtwork.id}" data-artwork-title="${favoriteArtwork.title}">Favorilerden Kaldır</button>
+                            </div>
+                        `;
+                         favoritesListDiv.appendChild(artworkItem);
+                    }
+                });
+            } else {
+                favoritesListDiv.innerHTML = '<p class="no-favorites-message">Henüz favori eseriniz bulunmamaktadır.</p>';
+            }
+
+            favoritesListDiv.addEventListener('click', function(event) {
+                if (event.target.classList.contains('remove-from-favorites')) {
+                    const button = event.target;
+                    const loggedInUser = localStorage.getItem('loggedInUser');
+                    if (!loggedInUser) {
+                        alert('Çıkış yapmalısınız.');
+                        return;
+                    }
+
+                    const artworkId = button.dataset.artworkId;
+                    const artworkTitle = button.dataset.artworkTitle;
+
+                    if (confirm(`${artworkTitle || 'Bu eseri'} favorilerinizden kaldırmak istediğinizden emin misiniz?`)) {
+                        if (typeof removeArtworkFromFavorites === 'function') {
+                            if (removeArtworkFromFavorites(loggedInUser, artworkId)) {
+                                alert(`${artworkTitle || 'Eser'} favorilerinizden kaldırıldı.`);
+                                button.closest('.favorite-artwork-item').remove();
+                                if (document.querySelectorAll('.favorite-artwork-item').length === 0) {
+                                    favoritesListDiv.innerHTML = '<p class="no-favorites-message">Henüz favori eseriniz bulunmamaktadır.</p>';
+                                }
+                            } else {
+                                alert('Eser favorilerinizde bulunamadı.');
+                            }
+                        } else {
+                            console.error("removeArtworkFromFavorites fonksiyonu bulunamadı. kullanici_giris.js dosyanız güncel mi?");
+                            alert("Bir hata oluştu. Lütfen konsolu kontrol edin.");
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

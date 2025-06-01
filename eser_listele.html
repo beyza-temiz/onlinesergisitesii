@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eserleri Listele/Düzenle - Yönetici Paneli</title>
+    <style>
+        /* Genel HTML ve Body Ayarları - Yapışkan Footer için Temel */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%; /* HTML ve Body'nin tarayıcı yüksekliğinin %100'ünü almasını sağlar */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Açık gri genel arka plan rengi, diğer sayfalarla tutarlı */
+            display: flex;
+            flex-direction: column; /* İçeriği dikey sıralar (header, main, footer) */
+            min-height: 100vh; /* Ekran yüksekliğinin tamamını kapla */
+        }
+
+        /* Header (Başlık) Bölümü Stilleri */
+        header {
+            background-color: #333; /* Koyu gri arka plan */
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            padding-bottom: 5px;
+        }
+
+        /* Navigasyon (Menü) Bölümü Stilleri */
+        nav ul {
+            list-style: none; /* Madde işaretlerini kaldırır */
+            padding: 0;
+            margin: 0;
+            display: flex; /* Menü öğelerini yatay hizalar */
+            justify-content: center; /* Menü öğelerini ortaya hizalar */
+            flex-wrap: wrap; /* Küçük ekranlarda alt alta geçsin */
+        }
+
+        nav ul li {
+            margin: 0 15px; /* Menü öğeleri arasına boşluk bırakır */
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none; /* Alt çizgiyi kaldırır */
+            padding: 8px 0;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ddd; /* Hover durumunda daha açık gri */
+        }
+
+        /* Ana İçerik Bölümü Stilleri */
+        main {
+            flex-grow: 1; /* Main içeriğin kalan alanı kaplamasını ve footer'ı aşağı itmesini sağlar */
+            padding: 20px; /* Kenar boşlukları */
+            box-sizing: border-box; /* Padding'in genişliğe dahil olmasını sağlar */
+            display: flex; /* İçeriği (admin-panel-container) ortalamak için */
+            justify-content: center;
+            align-items: flex-start; /* İçeriği dikeyde yukarı hizalar */
+        }
+
+        /* Admin Paneli Genel Kapsayıcı */
+        .admin-panel-container {
+            padding: 20px;
+            max-width: 1200px;
+            width: 100%; /* Main'in içindeki flex hizalaması için */
+            /* margin: 50px auto; --> Bu satırı kaldırıyoruz, main'deki hizalama ve gerekirse kendi padding'i ile ayarlanacak */
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-panel-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .admin-panel-header h2 {
+            color: #28a745;
+            margin-top: 0;
+        }
+
+        .artwork-list-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            overflow-x: auto; /* Yatay kaydırma gerekirse */
+        }
+
+        .artwork-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .artwork-table th,
+        .artwork-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .artwork-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .artwork-table tbody tr:nth-child(even) {
+            background-color:#f9f9f9;
+        }
+
+        .action-buttons a,
+        .action-buttons button {
+            display: inline-block;
+            padding: 8px 12px;
+            margin-right: 5px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .edit-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .edit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+
+        .add-new-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .add-new-button:hover {
+            background-color: #1e7e34;
+        }
+
+        /* Footer Bölümü Stilleri */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            margin-top: auto; /* Footer'ı sayfanın en altına itmek için Flexbox özelliği */
+        }
+
+        /* İçeriği ortalamak için kullanılan genel container (isteğe bağlı, main ile de yapılabilir) */
+        .container {
+            max-width: 1200px; /* Admin paneli için genişletilebilir */
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container"> <h1>Online Sanat Sergisi</h1>
+            <nav>
+                <ul>
+                    <li><a href="giris.html">Anasayfa</a></li>
+                    <li><a href="sergiyi_kesfet.html">Sergiyi Keşfet</a></li>
+                    <li><a href="sanatcilar.html">Sanatçılar</a></li>
+                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                    <li><a href="yonetici_paneli.html"> Yönetici Paneli</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="admin-panel-container">
+            <div class="admin-panel-header">
+                <h2>Eserleri Listele ve Düzenle</h2>
+                <a href="eser_ekle.html" class="add-new-button">Yeni Eser Ekle</a>
+            </div>
+
+            <div class="artwork-list-container">
+                <table class="artwork-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Görsel</th>
+                            <th>Eser Adı</th>
+                            <th>Sanatçı</th>
+                            <th>Tür</th>
+                            <th>Fiyatı</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eserListesi">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container"> <p>&copy; 2025 Online Sanat Sergisi</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const eserListesiTablosu = document.getElementById('eserListesi');
+
+            // Örnek eser verileri (gerçek uygulamada sunucudan alınmalı)
+            let eserler = [ // 'let' olarak değiştirildi, çünkü silme işlemi diziyi değiştirecek
+                { id: 'eser1', ad: 'Gül Ebru', sanatci: 'Hatice Fer', tur: 'Ebru Sanatı', fiyat: 1200, gorsel: 'ebru1_kucuk.jpg' },
+                { id: 'eser2', ad: 'Aslan Heykel', sanatci: 'Ali Pek', tur: 'Heykel', fiyat: 3000, gorsel: 'heykel1_kucuk.jpg' },
+                { id: 'eser3', ad: 'Hat', sanatci: 'Ayşe Yıl', tur: 'Hat Sanatı', fiyat: 800, gorsel: 'hat1_kucuk.jpg' },
+                { id: 'eser4', ad: 'Renk Cümbüşü', sanatci: 'Arda Demir', tur: 'Resim', fiyat: 1500, gorsel: 'resim6_kucuk.jpg' },
+                { id: 'eser5', ad: 'Şekiller', sanatci: 'Elif Kaya', tur: 'Dijital Sanat', fiyat: 950, gorsel: 'resim4_kucuk.jpg' },
+                { id: 'eser6', ad: 'Umut Çiçeği', sanatci: 'Maria Pink', tur: 'Resim', fiyat: 1100, gorsel: 'resim2_kucuk.jpg' },
+                { id: 'eser7', ad: 'At Heykeli', sanatci: 'Ali Pek', tur: 'Heykel', fiyat: 2800, gorsel: 'heykel2_kucuk.jpg' },
+                { id: 'eser8', ad: 'Ebru', sanatci: 'Hatice Fer', tur: 'Ebru Sanatı', fiyat: 950, gorsel: 'ebru2_kucuk.jpg' },
+                { id: 'eser9', ad: 'Doğa Resmi', sanatci: 'Arda Demir', tur: 'Resim', fiyat: 900, gorsel: 'resim5_kucuk.jpg' },
+                { id: 'eser10', ad: 'Mandala Motifi', sanatci: 'Elif Kaya', tur: 'Resim', fiyat: 650, gorsel: 'resim8_kucuk.jpg' },
+                { id: 'eser11', ad: 'Ebru Sanati', sanatci: 'Hatice Fer', tur: 'Ebru Sanatı', fiyat: 750, gorsel: 'ebru3_kucuk.jpg' },
+                { id: 'eser12', ad: 'Renklerin Dünyası', sanatci: 'Hatice Fer', tur: 'Ebru Sanatı', fiyat: 980, gorsel: 'ebru4_kucuk.jpg' },
+            ];
+
+            // Eserleri tabloya ekleme fonksiyonu
+            function eserleriListele(liste) { // Parametre olarak listeyi al
+                eserListesiTablosu.innerHTML = ''; // Önce tabloyu temizle
+                liste.forEach(eser => {
+                    const row = eserListesiTablosu.insertRow();
+                    row.id = `eser-row-${eser.id}`; // Her satıra bir ID ekle, silerken kolay bulmak için
+
+                    const idCell = row.insertCell();
+                    const gorselCell = row.insertCell();
+                    const adCell = row.insertCell();
+                    const sanatciCell = row.insertCell();
+                    const turCell = row.insertCell();
+                    const fiyatCell = row.insertCell();
+                    const islemlerCell = row.insertCell();
+
+                    idCell.textContent = eser.id;
+                    gorselCell.innerHTML = `<img src="${eser.gorsel}" alt="${eser.ad}" style="width: 50px; height: auto; display: block; margin: 0 auto;">`; /* Görseli ortaladık */
+                    adCell.textContent = eser.ad;
+                    sanatciCell.textContent = eser.sanatci;
+                    turCell.textContent = eser.tur;
+                    fiyatCell.textContent = eser.fiyat ? `${eser.fiyat} TL` : '-';
+                    islemlerCell.classList.add('action-buttons');
+                    islemlerCell.innerHTML = `
+                        <a href="eser_duzenle.html?id=${eser.id}" class="edit-button">Düzenle</a>
+                        <button class="delete-button" data-eser-id="${eser.id}">Sil</button> `;
+                });
+
+                // Silme butonlarına olay dinleyici ekle
+                attachDeleteListeners();
+            }
+
+            // Silme butonlarına olay dinleyici ekleyen fonksiyon
+            function attachDeleteListeners() {
+                const deleteButtons = document.querySelectorAll('.delete-button');
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const eserId = this.dataset.eserId;
+                        eserSil(eserId);
+                    });
+                });
+            }
+
+            // Eser silme fonksiyonu (ŞİMDİLİK SADECE FRONTEND TARAFINDA SİLME İŞLEMİ)
+            // GERÇEK UYGULAMADA BURADA SUNUCUYA İSTEK GÖNDERİLMELİDİR!
+            window.eserSil = async function(id) {
+                if (confirm(`ID ${id} olan eseri silmek istediğinize emin misiniz?`)) {
+                    console.log(`ID ${id} olan eser siliniyor... (Gerçek uygulamada sunucuya DELETE isteği gönderilir)`);
+
+                
+                    const initialLength = eserler.length;
+                    eserler = eserler.filter(eser => eser.id !== id);
+                    if (eserler.length < initialLength) {
+                        alert('Eser başarıyla silindi (sadece görüntüde)!');
+                        // Silinen eseri sayfadan kaldır (satır ID'si ile)
+                        const silinenSatir = document.getElementById(`eser-row-${id}`);
+                        if (silinenSatir) {
+                            silinenSatir.remove();
+                        }
+                    } else {
+                        alert('Eser bulunamadı veya silinemedi.');
+                    }
+                    // **GEÇİCİ SİLME İŞLEMİ SONU**
+                }
+            };
+
+            // Sayfa yüklendiğinde eserleri listele
+            eserleriListele(eserler);
+        });
+    </script>
+</body>
+</html>

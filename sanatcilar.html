@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanatçılar - Online Sergi</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Bu sayfaya özel CSS stilleri */
+        .sanatcilar-container {
+            padding: 20px;
+            max-width: 1200px; /* İçeriği ortalamak için genişlik sınırlaması */
+            margin: 0 auto;
+            /* Footer'ın üstünü kapatmaması için alt boşluk */
+            padding-bottom: 80px; /* Footer yüksekliğine göre ayarlanmalı */
+        }
+
+        .sanatci-liste {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Daha kompakt kartlar için minmax ayarı */
+            gap: 25px; /* Kartlar arası boşluk */
+        }
+
+        .sanatci-karti {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px; /* Daha yuvarlak köşeler */
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Daha belirgin gölge */
+            text-align: center;
+            padding: 20px; /* İç boşluğu artır */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover efekti için geçişler */
+        }
+
+        .sanatci-karti:hover {
+            transform: translateY(-8px); /* Hover'da hafif yukarı kayma */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Hover'da daha belirgin gölge */
+        }
+
+        .sanatci-karti img {
+            width: 120px; /* Resmi biraz büyüt */
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px; /* Alt boşluğu artır */
+            border: 3px solid #007bff; /* Resme çerçeve */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Resmin kendi gölgesi */
+        }
+
+        .sanatci-karti h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 1.4em; /* Başlığı büyüt */
+        }
+
+        .sanatci-karti p {
+            color: #666;
+            font-size: 1em;
+            line-height: 1.5;
+            margin-bottom: 15px; /* Alt boşluğu artır */
+            height: 75px; /* Biyografi için biraz daha fazla yer */
+            overflow: hidden;
+            text-overflow: ellipsis; /* Fazla metni ... ile göster */
+            display: -webkit-box; /* Metni sınırlamak için */
+            -webkit-line-clamp: 3; /* Maksimum 3 satır */
+            -webkit-box-orient: vertical;
+        }
+
+        .sanatci-detay-link {
+            display: inline-block;
+            padding: 10px 22px; /* Buton padding'i artır */
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px; /* Daha oval buton */
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .sanatci-detay-link:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px); /* Hover'da hafif yukarı kayma */
+        }
+
+        /* Başlıklar ve diğer genel stiller (style.css'te de olabilir) */
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+            font-size: 2.5em;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            display: inline-block; /* Çizginin başlığa sığmasını sağlar */
+            margin-left: auto;
+            margin-right: auto;
+            width: fit-content;
+        }
+        /* Footer'ı aşağıya sabitleyen stil */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333; /* Footer arka plan rengi */
+            color: white; /* Footer yazı rengi */
+            text-align: center;
+            padding: 20px 0; /* İç boşluk */
+            z-index: 1000; /* Diğer içeriklerin üstünde olması için */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Online Sanat Sergisi</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="sergiyi_kesfet.html">Sergiyi Keşfet</a></li>
+                <li><a href="sanatcilar.html">Sanatçılar</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+                <li><a href="giris.html">Giriş Yap</a></li>
+                <li><a href="kayit.html">Kayıt Ol</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+
+    <main class="sanatcilar-container">
+        <h2>Sanatçılarımız</h2>
+        <div class="sanatci-liste">
+            <div class="sanatci-karti">
+                <img src="sanatci1_kucuk.jpg" alt="Hatice Fer">
+                <h3>Hatice Fer</h3>
+                <p>1978'de Bursa'da doğan Hatice Fer, Türk Ebru sanatının önde gelen isimlerindendir. Marmara Üniversitesi Geleneksel Türk Sanatları Bölümü'nde Ebru üzerine yoğunlaştı...</p> 
+                <a href="sanatci_detay.html?id=1" class="sanatci-detay-link">Detaylar</a>
+            </div>
+
+            <div class="sanatci-karti">
+                <img src="sanatci2_kucuk.jpg" alt="Ali Pek">
+                <h3>Ali Pek</h3>
+                <p>1975 yılında İstanbul'da doğan Ali Pek, Mimar Sinan Güzel Sanatlar Üniversitesinden 1997 yılında mezun oldu. Manzara resimleri yapmayı sever...</p>
+                <a href="sanatci_detay.html?id=2" class="sanatci-detay-link">Detaylar</a>
+            </div>
+
+            <div class="sanatci-karti">
+                <img src="sanatci2.jpg" alt="Arda Demir">
+                <h3>Arda Demir</h3>
+                <p>Arda Demir, renkli kişiliği ve enerjik fırça darbeleriyle tanınan bir ressamdır. 
+                            Ankara'da doğan Arda, sanata olan ilgisini genç yaşta keşfetmiş ve bu tutkusunu profesyonel bir kariyere dönüştürmüştür...</p>
+                <a href="sanatci_detay.html?id=3" class="sanatci-detay-link">Detaylar</a>
+            </div>
+
+            <div class="sanatci-karti">
+                <img src="sanatci1.jpg" alt="Elif Kaya">
+                <h3>Elif Kaya</h3>
+                <p>Elif Kaya,karakterlerin iç dünyalarını yansıtmayı ve izleyiciyle duygusal bir bağ kurmayı amaçlar.</p>
+                <a href="sanatci_detay.html?id=4" class="sanatci-detay-link">Detaylar</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Online Sanat Sergisi</p>
+    </footer>
+</body>
+</html>

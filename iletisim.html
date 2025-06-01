@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim - Online Sanat Sergisi</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* İletişim sayfasına özel stiller */
+        .contact-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-header h2 {
+            color: #007bff;
+            margin-top: 0;
+        }
+
+        .contact-info-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            flex-basis: 30%; /* Üç sütun halinde sıralamak için */
+            text-align: center;
+            margin: 15px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-item h3 {
+            color: #28a745;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .contact-item p, .contact-item a {
+            color: #555;
+            text-decoration: none;
+            line-height: 1.5;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-form-section {
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-form-section h3 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Padding'i genişliğe dahil et */
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            resize: vertical; /* Sadece dikeyde boyutlandırmaya izin ver */
+            min-height: 100px;
+        }
+
+        .submit-button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .submit-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Online Sanat Sergisi</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="sergiyi_kesfet.html">Sergiyi Keşfet</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contact-container">
+        <div class="contact-header">
+            <h2>Bizimle İletişime Geçin</h2>
+            <p>Her türlü soru, öneri ve işbirliği talebiniz için bizimle iletişime geçebilirsiniz.</p>
+        </div>
+
+        <section class="contact-info-section">
+            <div class="contact-item">
+                <h3>E-posta</h3>
+                <p><a href="mailto:info@onlinesanatsergisi.com">info@onlinesanatsergisi.com</a></p>
+            </div>
+            <div class="contact-item">
+                <h3>Telefon</h3>
+                <p><a href="tel:+902120000000">0 (212) 000 00 00</a></p>
+            </div>
+            <div class="contact-item">
+                <h3>Adres</h3>
+                <p>Örnek Mah. Örnek Cad. No:123<br>İstanbul, Türkiye</p>
+            </div>
+        </section>
+
+        <section class="contact-form-section">
+            <h3>Bize Mesaj Gönderin</h3>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="name">Adınız Soyadınız:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-posta Adresiniz:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Konu:</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mesajınız:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Mesajı Gönder</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Online Sanat Sergisi</p>
+    </footer>
+</body>
+</html>

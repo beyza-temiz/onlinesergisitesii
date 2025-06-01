@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yönetici Paneli - Online Sanat Sergisi</title>
+    <style>
+        /* Genel HTML ve Body Stilleri */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%; /* html ve body'nin tam yüksekliği kaplamasını sağlar */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex; /* Flex konteyner yapar */
+            flex-direction: column; /* İçerikleri dikey olarak sıralar */
+            min-height: 100vh; /* Minimum yüksekliğin viewport yüksekliği kadar olmasını sağlar */
+        }
+
+        /* Header Stilleri */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            padding-bottom: 5px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 0;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ddd;
+        }
+
+        /* Main İçerik ve Yönetici Paneli Stilleri */
+        main {
+            flex-grow: 1; /* Ana içeriğin kalan tüm boşluğu doldurmasını sağlar */
+            padding: 20px; /* main'e genel bir padding ekledim */
+        }
+
+        .admin-panel-container {
+            max-width: 960px;
+            margin: 0 auto; /* margin: 50px auto; yerine 0 auto yaptım, main'in padding'i kullanılsın */
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px; /* İçeriğin container içinde boşluğu olsun */
+        }
+
+        .admin-panel-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .admin-panel-header h2 {
+            color: #28a745; /* Yönetici teması rengi */
+            margin-top: 0;
+        }
+
+        .admin-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .admin-action-card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .admin-action-card h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .admin-action-card a {
+            display: block;
+            padding: 10px 15px;
+            background-color: rgb(74, 175, 74);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease; /* Hover efekti için */
+        }
+
+        .admin-action-card a:hover {
+            background-color: #0056b3;
+        }
+
+        .logout-button {
+            display: block;
+            width: 150px;
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px auto 0;
+            transition: background-color 0.3s ease; /* Hover efekti için */
+        }
+
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+
+        /* Footer Stilleri */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Online Sanat Sergisi</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Anasayfa</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="admin-panel-container">
+            <div class="admin-panel-header">
+                <h2>Yönetici Paneli</h2>
+                <p><b>Online sanat sergisi yönetim araçlarına hoş geldiniz.</b></p>
+            </div>
+
+            <div class="admin-actions">
+                <div class="admin-action-card">
+                    <h3>Eser Yönetimi</h3>
+                    <p>Yeni eser ekleyebilir, mevcut eserleri düzenleyebilir veya silebilirsiniz.</p>
+                    <a href="eser_ekle.html">Eser Ekle</a>
+                    <a href="eser_listele.html">Eserleri Listele/Düzenle</a>
+                </div>
+                <div class="admin-action-card">
+                    <h3>Sanatçı Yönetimi</h3>
+                    <p>Yeni sanatçı ekleyebilir, sanatçı bilgilerini düzenleyebilir veya sanatçıları silebilirsiniz.</p>
+                    <a href="sanatci_ekle.html">Sanatçı Ekle</a>
+                    <a href="sanatci_duzenle.html">Sanatçıları Listele/Düzenle</a>
+                </div>
+                <div class="admin-action-card">
+                    <h3>Kullanıcı Yönetimi</h3>
+                    <p>Kullanıcıları görüntüleyebilir veya (gerekirse) hesaplarını yönetebilirsiniz.</p>
+                    <a href="kullanici_listele.html">Kullanıcıları Görüntüle</a>
+                    <a href="kullanici_yonet.html">Kullanıcı Hesaplarını Yönet</a>
+                </div>
+                <div class="admin-action-card">
+                    <h3>Sergi Ayarları</h3>
+                    <p>Sergi ile ilgili genel ayarları yapılandırabilirsiniz.</p>
+                    <a href="ayarlar_duzenle.html">Ayarları Düzenle</a>
+                </div>
+            </div>
+
+            <button class="logout-button" onclick="logout()">Çıkış Yap</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Online Sanat Sergisi</p>
+    </footer>
+
+    <script>
+        function logout() {
+            // Gerçek uygulamada yönetici oturumunu sonlandırma işlemleri burada yapılmalıdır.
+            alert("Yönetici çıkışı yapılıyor!");
+            window.location.href = "index.html"; // Yöneticiyi anasayfaya yönlendir
+        }
+    </script>
+</body>
+</html>

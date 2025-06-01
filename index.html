@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Sergi</title>
+   <link rel="stylesheet" href="style.css">
+
+   
+</head>
+<body>
+<a href="sepet.html" class="fixed-cart-link">
+        <img src="sepet_ikon.jpg" alt="Sepet" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 5px;">
+        (<span id="sepet-sayisi">0</span>)
+    </a>
+    
+    
+    <header>
+        <h1>Online Sanat Sergisi</h1>
+        <nav>
+            <ul>
+                <li><a href="#anasayfa">Anasayfa</a></li>
+                <li><a href="#eserler">Eserler</a></li>
+                <li><a href="sanatcilar.html">Sanatçılar</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+                <li><a href="giris.html">Giriş Yap</a> </li>
+                <li><a href="kayit.html"> Kayıt Ol</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="anasayfa" class="hero">
+            <div class="slideshow-container">
+                <div class="slide fade">
+                    <div class="numbertext">1 / 3</div>
+                    <img src="slide1.jpg" style="width:100%" alt="Slayt 1 Açıklaması">
+                    <div class="text">Resim Sergisi</div>
+                </div>
+    
+                <div class="slide fade">
+                    <div class="numbertext">2 / 3</div>
+                    <img src="slide2.jpg" style="width:100%" alt="Slayt 2 Açıklaması">
+                    <div class="text"> Güncel Sergi</div>
+                </div>
+    
+                <div class="slide fade">
+                    <div class="numbertext">3 / 3</div>
+                    <img src="slide3.jpg" style="width:100%" alt="Slayt 3 Açıklaması">
+                    <div class="text">Ebru Sanatı Sergisi</div>
+                </div>
+    
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+            <br>
+            <div style="text-align:center">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
+            <div class="hero-content">
+                <h2>Sanatın Dijital Buluşma Noktası</h2>
+                <p>Dünyanın dört bir yanından sanat eserlerini keşfedin.</p>
+                <a href="sergiyi_kesfet.html" class="button">Sergiyi Keşfet</a>
+            </div>
+        </section>
+        <section id="eserler" class="gallery">
+            <h2>Eserler</h2>
+            <div class="dropdown">
+                <button class="dropbtn">Tüm Eserler</button>
+                <div class="dropdown-content">
+                    <a href="#" data-filter="all" class="active">Tüm Eserler</a>
+                    <a href="#" data-filter="heykel">Heykel</a>
+                    <a href="#" data-filter="resim">Resim</a>
+                    <a href="#" data-filter="hat-sanati">Hat Sanatı</a>
+                    <a href="#" data-filter="ebru-sanatı">Ebru Sanatı</a>
+                </div>
+            </div>
+            <div class="artwork-grid">
+                <div class="artwork-item" data-type="resim">
+                    <img src="resim1_kucuk.jpg" alt="Resim 1">
+                    <h3>Manzara Resmi</h3>
+                    <p>Sanatçı Adı: Arda Demir</p>
+                    
+                </div>
+                <div class="artwork-item" data-type="heykel">
+                    <img src="heykel1_kucuk.jpg" alt="Heykel 1">
+                    <h3> Aslan Heykeli</h3>
+                    <p>Sanatçı Adı:Ahmet Ak</p>
+                    
+                </div>
+                <div class="artwork-item" data-type="hat-sanati">
+                    <img src="hat1_kucuk.jpg" alt="Hat Sanatı 1">
+                    <h3>Hat Sanatı</h3>
+                    <p>Sanatçı Adı: Ayşe Yıl</p>
+                    
+                </div>
+                <div class="artwork-item" data-type="resim">
+                    <img src="resim2_kucuk.jpg" alt="Resim 2">
+                    <h3>Karakalem Çiçek Resmi</h3>
+                    <p>Sanatçı Adı: Maria Pink</p>
+                    
+                </div>
+                
+                 <div class="artwork-item" data-type="resim">
+                    <img src="resim3_kucuk.jpg" alt="Resim 3">
+                    <h3>Karakalem Deniz Manzaralı Cami Resmi</h3>
+                    <p>Sanatçı Adı:Arda Demir</p>
+            
+                </div>
+                <div class="artwork-item" data-type="heykel">
+                    <img src="heykel2_kucuk.jpg" alt="Heykel 2">
+                    <h3>At Heykeli</h3>
+                    <p>Sanatçı Adı:Ahmet Ak</p>
+                
+                </div>
+                 <div class="artwork-item" data-type="ebru-sanatı">
+                    <img src="ebru1_kucuk.jpg" alt="Ebru Sanatı 1">
+                    <h3> Gül Ebru Sanatı</h3>
+                    <p>Sanatçı Adı:Hatice Fer</p>
+                
+                </div>
+                <div class="artwork-item" data-type="ebru-sanatı">
+                    <img src="ebru2_kucuk.jpg" alt="Ebru Sanatı 2">
+                    <h3> Çiçek Ebru Sanatı</h3>
+                    <p>Sanatçı Adı:Hatice Fer</p>
+                    
+                </div>
+                <div class="artwork-item" data-type="resim">
+                    <img src="resim4_kucuk.jpg" alt="Resim 4">
+                    <h3>Dijital Sanat Resmi</h3>
+                    <p>Sanatçı Adı:Elif Kaya</p>
+                    
+                </div>
+                <div class="artwork-item" data-type="resim">
+                    <img src="resim5_kucuk.jpg" alt="Resim 5">
+                    <h3>Doğa Resmi</h3>
+                    <p>Sanatçı Adı:Arda Demir</p>
+                    
+                </div>
+        </section>
+      
+        <section id="sanatcilar" class="artists">
+            <h2>Sanatçılarımız</h2>
+            <div class="artist-list">
+                <div class="artist-card">
+                    <img src="sanatci1.jpg" alt="Sanatçı 1">
+                    <h3>Sanatçı Adı:Elif Kaya</h3>
+                    <p><b>Kısa Biyografi</b>
+                        <br>Doğum Tarihi: 15 Mart 2002
+                        <br>Doğum Yeri:İstanbul,Türkiye<br>Marmara Üniversitesi Güzel Sanatlar Fakültesi,Resim Bölümü     
+                    </p>
+                    <p><b> Hakkında:</b> karakterlerin iç dünyalarını yansıtmayı ve izleyiciyle duygusal bir bağ kurmayı amaçlar. 
+                        Paletinde canlı ve sıcak renkleri ustalıkla kullanan Elif, eserlerinde hem hüzün hem de umut gibi çeşitli duyguları bir arada işlemeyi başarır.
+Üniversite yıllarında çeşitli öğrenci sergilerine katılan Elif, 2024 yılında genç yetenekleri desteklemeyi amaçlayan özel bir galeride ilk kişisel sergisini açmıştır. 
+Sergisi sanat çevrelerinden olumlu eleştiriler almış ve eserleri sanatseverlerin ilgisini çekmiştir.</p>
+                </div>
+                <div class="artist-card">
+                    <img src="sanatci2.jpg" alt="Sanatçı 2">
+                    <h3>Sanatçı Adı: Arda Demir</h3>
+                    <p><b>Kısa Biyografi</b>
+                        <br>Doğum Tarihi:10 Mart 1985<br>Doğum Yeri:Ankara,Türkiye  </p>
+                        <p><b>Hakkında:</b>Arda Demir, renkli kişiliği ve enerjik fırça darbeleriyle tanınan bir ressamdır. 
+                            Ankara'da doğan Arda, sanata olan ilgisini genç yaşta keşfetmiş ve bu tutkusunu profesyonel bir kariyere dönüştürmüştür.
+                            Arda'nın resimleri genellikle içsel duygularını ve dış dünyadan aldığı izlenimleri yansıtır. İzleyiciyi renklerin ve formların dünyasına davet eden sanatçı, eserleriyle pozitif enerji ve neşe yaymayı hedefler. 
+                            Farklı malzemelerle yaptığı denemeler ve kendine özgü teknikleriyle dikkat çeken Arda, sanatını sürekli olarak yenilemekte ve geliştirmektedir.
+Bugüne kadar birçok karma sergiye katılan Arda Demir, 2023 yılında İstanbul'da ilk kişisel sergisini açmıştır. 
+Sergisi sanatseverler ve eleştirmenler tarafından ilgiyle karşılanmış ve sanatçının kariyerinde önemli bir dönüm noktası olmuştur.
+                         </p>
+                </div>
+                </div>
+        </section>
+
+        <section id="hakkimizda" class="about">
+            <h2>Hakkımızda</h2>
+            <p><b>Misyonumuz:</b> Sanatı herkes için erişilebilir kılmak, yeni yetenekleri desteklemek</p>
+            <p><b>Vizyonumuz:</b> Türkiye'nin önde gelen online sanat platformu olmak ve çağdaş sanatın gelişimine katkıda bulunmak.</p>
+        </section>
+
+        <section id="iletisim" class="contact">
+            <h2>İletişim</h2>
+            <p><b>E-posta: </b>@onlinesanatsergisi.com</p>
+            <p><b>Telefon: </b>0 (212) 000 00 00</p>
+            <p><b> Adres:</b>Örnek Mah. Örnek Cad. No:123<br>İstanbul, Türkiye</p>
+            </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Online Sanat Sergisi</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

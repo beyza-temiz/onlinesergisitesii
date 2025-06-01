@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayarları Düzenle - Yönetici Paneli</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-panel-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-panel-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .admin-panel-header h2 {
+            color:rgb(203, 29, 145);
+            margin-top: 0;
+        }
+
+        .settings-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .settings-container h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #e026c4;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea,
+        .form-group select,
+        .form-group input[type="checkbox"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .cancel-button {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        .cancel-button:hover {
+            background-color: #c82333;
+        }
+
+        .button-group {
+            margin-top: 20px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Online Sanat Sergisi</h1>
+        <nav>
+            <ul>
+                <li><a href="yonetici_paneli.html">Yönetici Paneli</a></li>
+                </ul>
+        </nav>
+    </header>
+
+    <main class="admin-panel-container">
+        <div class="admin-panel-header">
+            <h2>Sergi Ayarlarını Düzenle</h2>
+        </div>
+
+        <form id="ayarlarForm">
+            <div class="settings-container">
+                <h3>Genel Ayarlar</h3>
+                <div class="form-group">
+                    <label for="sergiAdi">Sergi Adı:</label>
+                    <input type="text" id="sergiAdi" name="sergiAdi" value="Online Sanat Sergisi">
+                </div>
+                <div class="form-group">
+                    <label for="sergiAciklamasi">Sergi Açıklaması:</label>
+                    <textarea id="sergiAciklamasi" name="sergiAciklamasi">Online sanat eserlerinin sergilendiği platform.</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="anasayfaDuyurusu">Anasayfa Duyurusu (isteğe bağlı):</label>
+                    <textarea id="anasayfaDuyurusu" name="anasayfaDuyurusu"></textarea>
+                </div>
+            </div>
+
+            <div class="settings-container">
+                <h3>Görsel Ayarları</h3>
+                <div class="form-group">
+                    <label for="maksimumYuklemeBoyutu">Maksimum Yükleme Boyutu (MB):</label>
+                    <input type="number" id="maksimumYuklemeBoyutu" name="maksimumYuklemeBoyutu" value="5" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="kucukGorselBoyutu">Küçük Görsel Boyutu (piksel):</label>
+                    <input type="number" id="kucukGorselBoyutu" name="kucukGorselBoyutu" value="200" min="50">
+                </div>
+            </div>
+
+            <div class="settings-container">
+                <h3>Diğer Ayarlar</h3>
+                <div class="form-group">
+                    <label for="yorumlarAktif">Yorumlar Aktif:</label>
+                    <input type="checkbox" id="yorumlarAktif" name="yorumlarAktif" checked>
+                </div>
+                <div class="form-group">
+                    <label for="sosyalMedyaBaglantisi">Sosyal Medya Bağlantısı (isteğe bağlı):</label>
+                    <input type="text" id="sosyalMedyaBaglantisi" name="sosyalMedyaBaglantisi" placeholder="Örn: https://twitter.com/sanatsergisi">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <a href="yonetici_paneli.html" class="cancel-button">İptal</a>
+                <button type="submit" class="submit-button">Kaydet</button>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Online Sanat Sergisi</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ayarlarForm = document.getElementById('ayarlarForm');
+
+            ayarlarForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Sayfanın yenilenmesini engelle
+
+                // Form verilerini al
+                const sergiAdi = document.getElementById('sergiAdi').value;
+                const sergiAciklamasi = document.getElementById('sergiAciklamasi').value;
+                const anasayfaDuyurusu = document.getElementById('anasayfaDuyurusu').value;
+                const maksimumYuklemeBoyutu = document.getElementById('maksimumYuklemeBoyutu').value;
+                const kucukGorselBoyutu = document.getElementById('kucukGorselBoyutu').value;
+                const yorumlarAktif = document.getElementById('yorumlarAktif').checked;
+                const sosyalMedyaBaglantisi = document.getElementById('sosyalMedyaBaglantisi').value;
+
+                const ayarlar = {
+                    sergiAdi: sergiAdi,
+                    sergiAciklamasi: sergiAciklamasi,
+                    anasayfaDuyurusu: anasayfaDuyurusu,
+                    maksimumYuklemeBoyutu: maksimumYuklemeBoyutu,
+                    kucukGorselBoyutu: kucukGorselBoyutu,
+                    yorumlarAktif: yorumlarAktif,
+                    sosyalMedyaBaglantisi: sosyalMedyaBaglantisi
+                };
+
+                // Gerçek uygulamada bu veriler bir API endpointine PUT veya POST edilmelidir.
+                console.log("Kaydedilecek Ayarlar:", ayarlar);
+                alert("Ayarlar başarıyla kaydedildi! (Bu sadece bir örnektir)");
+
+                // Başarılı kayıt sonrası yönetici paneline yönlendirme (isteğe bağlı)
+                window.location.href = "yonetici_paneli.html";
+            });
+
+            // Sayfa yüklendiğinde mevcut ayarları (varsa) form alanlarına yükleyebilirsiniz.
+            // Gerçek uygulamada bu ayarlar sunucudan alınmalıdır.
+        });
+    </script>
+</body>
+</html>

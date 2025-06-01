@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcıları Görüntüle - Online Sanat Sergisi</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Sadece bu sayfaya özgü stil değişiklikleri veya eklemeler */
+        .admin-panel-container { /* Adı genel kalabilir ama içeriği daha pasif */
+            padding: 20px;
+            max-width: 960px; /* Daha dar bir genişlik yeterli */
+            margin: 50px auto;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative; /* Geri butonu için */
+        }
+
+        .admin-panel-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .admin-panel-header h2 {
+            color: #28a745;
+            margin-top: 0;
+        }
+
+        .user-list-container { /* Kullanıcı listeleme için kapsayıcı */
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .user-table th,
+        .user-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .user-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .user-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Geri butonu stilleri */
+        .back-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+        }
+
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+
+        /* Navigasyon ve Footer stilleri (style.css'den geliyorsa bu sayfadan silin) */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            padding-bottom: 5px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 0;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ddd;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Online Sanat Sergisi</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Anasayfa</a></li>
+                    <li><a href="sergiyi_kesfet.html">Sergiyi Keşfet</a></li>
+                    <li><a href="sanatcilar.html">Sanatçılar</a></li>
+                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                    <li><a href="eser_listele.html">Eserleri Yönet</a></li>
+                    <li><a href="kullanici_yonet.html">Kullanıcıları Yönet</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="admin-panel-container">
+            <div class="admin-panel-header">
+                <a href="yonetici_paneli.html" class="back-button">Yönetici Paneline Geri Dön</a>
+                <h2>Kullanıcı Listesi</h2>
+                <p>Sistemdeki kayıtlı kullanıcıların genel listesi.</p>
+            </div>
+
+            <div class="user-list-container">
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Kullanıcı Adı</th>
+                            <th>E-posta</th>
+                            <th>Kayıt Tarihi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="kullaniciListesi">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Online Sanat Sergisi</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const kullaniciListesiTablosu = document.getElementById('kullaniciListesi');
+
+            // Örnek kullanıcı verileri (gerçek uygulamada sunucudan alınmalı)
+            const kullanicilar = [ // Bu sayfada sadece listeleme olacağı için 'const' kalabilir
+                { id: 1, kullaniciAdi: 'admin', eposta: 'admin@example.com', kayitTarihi: '2024-01-15' },
+                { id: 2, kullaniciAdi: 'ahmet.demir', eposta: 'ahmet.demir@example.com', kayitTarihi: '2024-02-20' },
+                { id: 3, kullaniciAdi: 'zeynep.kaya', eposta: 'zeynep.kaya@example.com', kayitTarihi: '2024-03-01' },
+                { id: 4, kullaniciAdi: 'mehmet.yilmaz', eposta: 'mehmet.yilmaz@example.com', kayitTarihi: '2024-04-10' },
+                { id: 5, kullaniciAdi: 'ayse.can', eposta: 'ayse.can@example.com', kayitTarihi: '2024-05-10' },
+                { id: 6, kullaniciAdi: 'ali.guler', eposta: 'ali.guler@example.com', kayitTarihi: '2024-06-10' },
+                { id: 7, kullaniciAdi: 'fatma.celik', eposta: 'fatma.celik@example.com', kayitTarihi: '2024-07-11' },
+                { id: 8, kullaniciAdi: 'can.kara', eposta: 'can.kara@example.com', kayitTarihi: '2024-08-18' },
+                { id: 9, kullaniciAdi: 'elif.uzun', eposta: 'elif.uzun@example.com', kayitTarihi: '2024-09-21' },
+               { id: 10, kullaniciAdi: 'deniz.sahin', eposta: 'deniz.sahin@example.com', kayitTarihi: '2024-10-25' },
+               { id: 11, kullaniciAdi: 'mustafa.yildiz', eposta: 'mustafa.yildiz@example.com', kayitTarihi: '2024-10-9' },
+            ];
+
+            // Kullanıcıları tabloya ekleme fonksiyonu (işlem butonları olmadan)
+            function kullanicilariListele(liste) {
+                kullaniciListesiTablosu.innerHTML = ''; // Önce tabloyu temizle
+                liste.forEach(kullanici => {
+                    const row = kullaniciListesiTablosu.insertRow();
+                    const idCell = row.insertCell();
+                    const kullaniciAdiCell = row.insertCell();
+                    const epostaCell = row.insertCell();
+                    const kayitTarihiCell = row.insertCell();
+                    
+                    idCell.textContent = kullanici.id;
+                    kullaniciAdiCell.textContent = kullanici.kullaniciAdi;
+                    epostaCell.textContent = kullanici.eposta;
+                    kayitTarihiCell.textContent = kullanici.kayitTarihi;
+                    // Bu sayfada İşlemler hücresi ve butonlar EKLEME!
+                });
+            }
+
+            // Sayfa yüklendiğinde kullanıcıları listele
+            kullanicilariListele(kullanicilar);
+        });
+    </script>
+</body>
+</html>

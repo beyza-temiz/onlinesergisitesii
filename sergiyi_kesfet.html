@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sergiyi Keşfet - Online Sanat Sergisi</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Genel sayfa düzeni (body, header, nav, footer) */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            padding-bottom: 5px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 0;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ddd;
+        }
+
+        /* Sepet İkonu için CSS */
+        .cart-icon {
+            height: 24px; /* İkonun yüksekliği */
+            vertical-align: middle; /* Metinle dikey hizalama */
+            margin-right: 5px; /* Metinle arasında boşluk */
+        }
+        /* Sayfaya özel stiller */
+        .explore-container {
+            padding: 20px;
+            /* max-width kaldırıldı veya arttırıldı */
+            /* margin: 20px auto; kaldırıldı veya sola hizalama eklendi */
+            width: 100%; /* Konteynerin tam genişliği kaplamasını sağlar */
+            box-sizing: border-box; /* Padding'in toplam genişliğe dahil olmasını sağlar */
+            flex-grow: 1;
+        }
+
+        .explore-header {
+            text-align: center;
+            margin-bottom: 20px;
+            color:rgb(99, 37, 154);
+        }
+
+        .filter-section {
+            background-color: #efd2e2;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            justify-content: flex-start; /* Filtreleri sola hizala */
+            max-width: 1200px; /* Filtre alanının max genişliği, içerikle hizala */
+            margin-left: auto; /* Sola hizalarken sağa boşluk bırak */
+            margin-right: auto; /* Sağa boşluk bırak */
+            padding-left: 20px; /* Sola padding ekle */
+            padding-right: 20px; /* Sağa padding ekle */
+            box-sizing: border-box;
+        }
+
+        .filter-section label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .filter-section select,
+        .filter-section input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex-grow: 1;
+            max-width: 200px;
+        }
+
+        .artwork-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            /* grid'in kendisini ortalamak yerine, .explore-container ile hizalamak */
+            max-width: 1200px; /* Maksimum genişlik belirle */
+            margin: 0 auto; /* Grid'i ana konteyner içinde ortala */
+            padding: 0 20px; /* Kenarlara boşluk ver */
+            box-sizing: border-box;
+        }
+
+        .artwork-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .artwork-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .artwork-image-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            border-bottom: 1px solid #eee;
+        }
+
+        .artwork-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .artwork-info {
+            padding: 15px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .artwork-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.3em;
+            color: #333;
+        }
+
+        .artwork-artist {
+            color: #555;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .artwork-price {
+            color: purple;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .artwork-details-link,
+        .add-to-favorites,
+        .add-to-cart { /* Yeni eklenen stil */
+            display: block;
+            width: calc(100% - 30px);
+            margin: 0 auto 10px auto;
+            padding: 12px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-favorites {
+            background-color: rgb(230, 31, 140);
+            color: white;
+            border: none;
+        }
+
+        .add-to-favorites:hover:not(:disabled) {
+            background-color: #b30092;
+        }
+
+        .add-to-favorites:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            color: #666;
+        }
+
+        .add-to-cart { /* Sepete Ekle butonu için stil */
+            background-color: #28a745; /* Yeşil tonu */
+            color: white;
+            border: none;
+            margin-bottom: 10px; /* Diğer butonla arasına boşluk */
+        }
+
+        .add-to-cart:hover {
+            background-color: #218838; /* Hover rengi */
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Online Sanat Sergisi</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="sanatcilar.html">Sanatçılar</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+                <li id="login-link-li"><a href="kullanici_giris.html">Kullanıcı Girişi</a></li>
+                <li id="register-link-li"><a href="kayit.html">Kayıt Ol</a></li>
+                <li id="favorites-link-li" style="display: none;"><a href="favorilerim.html">Favorilerim</a></li>
+                
+                <li id="logout-button-li" style="display: none;"><button id="logout-button">Çıkış Yap</button></li>
+                <li>
+                    <a href="sepet.html">
+                        <img src="sepet_ikon.jpg" alt="Sepetim" class="cart-icon"> Sepetim
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="explore-container">
+        <div class="explore-header">
+            <h2>Sergiyi Keşfet</h2>
+            <p>Online sergimizdeki tüm eserlere göz atın.</p>
+        </div>
+
+        <div class="filter-section">
+            <label for="filter-artist">Sanatçı:</label>
+            <select id="filter-artist">
+                <option value="">Tüm Sanatçılar</option>
+            </select>
+
+            <label for="filter-type">Tür:</label>
+            <select id="filter-type">
+                <option value="">Tüm Türler</option>
+                <option value="Resim">Resim</option>
+                <option value="Heykel">Heykel</option>
+                <option value="Hat Sanatı">Hat Sanatı</option>
+                <option value="Dijital Sanat">Dijital Sanat</option>
+                <option value="Ebru Sanatı"> Ebru Sanatı</option>
+            </select>
+
+            <label for="search-artwork">Eser Adı:</label>
+            <input type="text" id="search-artwork" placeholder="Eser adı ara">
+        </div>
+
+        <div class="artwork-grid" id="artwork-list">
+            </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Online Sanat Sergisi</p>
+    </footer>
+
+    <script src="kullanici_giris.js"></script>
+     <script src="sepet.js"></script>
+
+    <script>
+        // eserler verisi global scope'ta veya burada tanımlı olmalı
+        const eserler = [
+            { id: 'eser1', ad: 'Gül Ebru', sanatci: 'Hatice Fer', tur: 'Ebru Sanatı', fiyat: 1200, gorsel: 'ebru1_kucuk.jpg' },
+            { id: 'eser2', ad: 'Aslan Heykel', sanatci: 'Ali Pek', tur: 'Heykel', fiyat: 3000, gorsel: 'heykel1_kucuk.jpg' },
+            { id: 'eser3', ad: 'Hat', sanatci: 'Ayşe Yıl', tur: 'Hat Sanatı', fiyat: 800, gorsel: 'hat1_kucuk.jpg' },
+            { id: 'eser4', ad: 'Renk Cümbüşü', sanatci: 'Arda Demir', tur: 'Resim', fiyat: 1500, gorsel: 'resim6_kucuk.jpg' },
+            { id: 'eser5', ad: 'Şekiller', sanatci: 'Elif Kaya', tur: 'Dijital Sanat', fiyat: 950, gorsel: 'resim4_kucuk.jpg' },
+            { id: 'eser6', ad: 'Umut Çiçeği', sanatci: 'Maria Pink', tur: 'Resim', fiyat: 1100, gorsel: 'resim2_kucuk.jpg' },
+            { id: 'eser7', ad: 'At Heykeli', sanatci: 'Ali Pek', tur: 'Heykel', fiyat: 2800, gorsel: 'heykel2_kucuk.jpg' },
+            { id: 'eser8', ad: 'Ebru', sanatci: 'Hatice Fer', tur: 'Ebru Sanatı', fiyat: 950, gorsel: 'ebru2_kucuk.jpg' },
+            { id: 'eser9', ad: 'Doğa Resmi', sanatci: 'Arda Demir', tur: 'Resim', fiyat: 900, gorsel: 'resim5_kucuk.jpg' },
+            { id: 'eser10', ad: 'Mandala Motifi', sanatci: 'Elif Kaya', tur: 'Resim', fiyat: 650, gorsel: 'resim8_kucuk.jpg' },
+            { id: 'eser11', ad: 'Ebru Sanati', sanatci: 'Hatice Fer', tur: 'Ebru Sanatı', fiyat: 750, gorsel: 'ebru3_kucuk.jpg' },
+            { id: 'eser12', ad: 'Renklerin Dünyası', sanatci: 'Hatice Fer', tur: 'Ebru Sanatı', fiyat: 980, gorsel: 'ebru4_kucuk.jpg' },
+        ];
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const artworkListContainer = document.getElementById('artwork-list');
+            const filterArtistSelect = document.getElementById('filter-artist');
+            const filterTypeSelect = document.getElementById('filter-type');
+            const searchArtworkInput = document.getElementById('search-artwork');
+
+            // Sanatçı filtreleme için sanatçıları seçeneklere ekle
+            const sanatcilar = [...new Set(eserler.map(eser => eser.sanatci))];
+            sanatcilar.forEach(sanatci => {
+                const option = document.createElement('option');
+                option.value = sanatci;
+                option.textContent = sanatci;
+                filterArtistSelect.appendChild(option);
+            });
+
+            function displayArtworks(filteredEserler) {
+                artworkListContainer.innerHTML = '';
+                if (filteredEserler.length === 0) {
+                    artworkListContainer.innerHTML = '<p>Eşleşen eser bulunamadı.</p>';
+                    return;
+                }
+
+                const loggedInUser = localStorage.getItem('loggedInUser');
+                let userFavorites = [];
+                if (loggedInUser) {
+                    // Kullanıcı giriş yaptıysa favori listesini çek
+                    // 'getFavoriteArtworks' fonksiyonu kullanici_giris.js'den gelmeli
+                    if (typeof getFavoriteArtworks === 'function') {
+                        userFavorites = getFavoriteArtworks(loggedInUser);
+                    } else {
+                        console.error("getFavoriteArtworks fonksiyonu bulunamadı. kullanici_giris.js dosyanız güncel mi?");
+                    }
+                }
+
+                filteredEserler.forEach(eser => {
+                    const artworkCard = document.createElement('div');
+                    artworkCard.classList.add('artwork-card');
+
+                    // Eserin favorilerde olup olmadığını kontrol et
+                    const isFavorite = userFavorites.some(fav => fav.id === eser.id);
+                    const buttonText = isFavorite ? 'Favorilerimde' : 'Favorilere Ekle';
+                    const buttonDisabled = isFavorite ? 'disabled' : ''; // Favoride ise butonu devre dışı bırak
+
+                    artworkCard.innerHTML = `
+                        <div class="artwork-image-container">
+                            <img src="${eser.gorsel}" alt="${eser.ad}" class="artwork-image">
+                        </div>
+                        <div class="artwork-info">
+                            <h3 class="artwork-title">${eser.ad}</h3>
+                            <p class="artwork-artist">${eser.sanatci}</p>
+                            <p class="artwork-price">${eser.fiyat ? eser.fiyat + ' TL' : 'Fiyat Belirtilmemiş'}</p>
+                            <button class="add-to-favorites" data-artwork-id="${eser.id}" data-artwork-title="${eser.ad}" ${buttonDisabled}>
+                                ${buttonText}
+                            </button>
+                            <button class="add-to-cart" data-artwork-id="${eser.id}" data-artwork-title="${eser.ad}" data-artwork-price="${eser.fiyat}">Sepete Ekle</button>
+                        </div>
+                    `;
+                    artworkListContainer.appendChild(artworkCard);
+                });
+
+                // Dinamik olarak eklenen butonlara olay dinleyici atama
+                artworkListContainer.querySelectorAll('.add-to-favorites').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const loggedInUser = localStorage.getItem('loggedInUser');
+                        if (!loggedInUser) {
+                            alert('Favorilere eklemek için önce giriş yapmalısınız!');
+                            window.location.href = 'kullanici_giris.html';
+                            return;
+                        }
+
+                        const artworkId = this.dataset.artworkId;
+                        const artworkTitle = this.dataset.artworkTitle;
+
+                        // 'addArtworkToFavorites' fonksiyonu kullanici_giris.js'den gelmeli
+                        if (typeof addArtworkToFavorites === 'function') {
+                            if (addArtworkToFavorites(loggedInUser, artworkId, artworkTitle)) {
+                                alert(`${artworkTitle} favorilerinize eklendi!`);
+                                this.textContent = 'Favorilerimde';
+                                this.disabled = true;
+                            } else {
+                                alert(`${artworkTitle} zaten favorilerinizde.`);
+                            }
+                        } else {
+                            console.error("addArtworkToFavorites fonksiyonu bulunamadı. kullanici_giris.js dosyanız güncel mi?");
+                            alert("Bir hata oluştu. Lütfen konsolu kontrol edin.");
+                        }
+                    });
+                });
+
+                // Sepete Ekle butonlarına olay dinleyici atama
+                artworkListContainer.querySelectorAll('.add-to-cart').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const artworkId = this.dataset.artworkId;
+                        const artworkTitle = this.dataset.artworkTitle;
+                        const artworkPrice = parseFloat(this.dataset.artworkPrice); // Fiyatı sayıya çevir
+
+                        // 'addToCart' fonksiyonu sepet.js'den gelmeli
+                        if (typeof addToCart === 'function') {
+                            addToCart(artworkId, artworkTitle, artworkPrice);
+                            alert(`${artworkTitle} sepete eklendi!`);
+                        } else {
+                            console.error("addToCart fonksiyonu bulunamadı. sepet.js dosyanız güncel mi?");
+                            alert("Bir hata oluştu. Lütfen konsolu kontrol edin.");
+                        }
+                    });
+                });
+            }
+
+            function filterArtworks() {
+                const selectedArtist = filterArtistSelect.value;
+                const selectedType = filterTypeSelect.value;
+                const searchText = searchArtworkInput.value.toLowerCase();
+
+                const filtered = eserler.filter(eser => {
+                    const artistMatch = !selectedArtist || eser.sanatci === selectedArtist;
+                    const typeMatch = !selectedType || eser.tur === selectedType;
+                    const searchMatch = !searchText || eser.ad.toLowerCase().includes(searchText);
+                    return artistMatch && typeMatch && searchMatch;
+                });
+
+                displayArtworks(filtered);
+            }
+
+            // Filtreleme olay dinleyicileri
+            filterArtistSelect.addEventListener('change', filterArtworks);
+            filterTypeSelect.addEventListener('change', filterArtworks);
+            searchArtworkInput.addEventListener('input', filterArtworks);
+
+            // Sayfa yüklendiğinde tüm eserleri göster
+            displayArtworks(eserler);
+        });
+    </script>
+</body>
+</html>

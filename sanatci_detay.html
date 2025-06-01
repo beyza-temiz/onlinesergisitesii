@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanatçı Detayı - Online Sergi</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Bu sayfaya özel CSS stilleri */
+        .sanatci-detay-container {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            max-width: 960px;
+            margin: 0 auto; /* Sayfayı ortalar */
+        }
+
+        .sanatci-bilgi-ust {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap; /* Küçük ekranlarda alt alta geçiş sağlar */
+            align-items: center; /* Dikeyde hizalama */
+        }
+
+        .sanatci-detay-gorsel {
+            flex-shrink: 0;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f0f0f0; /* Resim yüklenene kadar boş gri arka plan */
+        }
+
+        .sanatci-detay-gorsel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block; /* Altında boşluk bırakmaz */
+        }
+
+        .sanatci-detay-yazi {
+            flex-grow: 1;
+        }
+
+        .sanatci-detay-yazi h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .sanatci-detay-yazi p {
+            line-height: 1.6;
+            margin-bottom: 10px; /* Paragraflar arası boşluk */
+            color: #555;
+        }
+
+        .sanatci-eserleri {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .sanatci-eserleri h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+/* Sanatçının Eserleri Listesi İçin Stil Ayarları */
+
+.sanatci-eserleri-liste {
+    /* Bu kural, eser resimlerinin yataydaki düzenini ve aralarındaki boşluğu kontrol eder. */
+    list-style: none; /* Liste işaretlerini kaldırır */
+    padding: 0; /* İç boşluğu sıfırlar */
+    display: grid; /* Grid düzeni kullanırız */
+    /* Resimlerin genişliğini ve sayısını ayarlar. Her bir resim min. 200px, max. 1fr (kalan alanı) kaplar */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 25px; /* **Resimler arası boşluğu büyütürüz (önce 15px idi)** */
+}
+
+.sanatci-eserleri-liste li {
+    /* Bu kural, her bir eseri saran çerçevenin stilini kontrol eder. */
+    border: 1px solid #ddd; /* Kenarlık rengi */
+    border-radius: 10px; /* **Daha yuvarlak köşeler (önce 8px idi)** */
+    overflow: hidden; /* İçerik taşarsa gizle */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* **Daha belirgin gölge (önce 0 2px 5px idi)** */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Fare üzerine gelme efekti için geçiş */
+    background-color: #fff; /* Çerçevenin arka plan rengi */
+}
+
+.sanatci-eserleri-liste li:hover {
+    /* Fare üzerine gelince çerçevenin hafifçe büyümesi ve gölgesinin artması */
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25); /* **Hover'da daha belirgin gölge** */
+}
+
+.sanatci-eserleri-liste li img {
+    /* Bu kural, eserin kendisi olan görselin boyutunu kontrol eder. */
+    width: 100%; /* Kapsayıcısının (li) %100'ü genişliğinde olur */
+    height: 220px; /* **Resmin yüksekliğini büyütürüz (önce 150px idi)** */
+    object-fit: cover; /* Resmin en boy oranını koruyarak kutuya sığmasını sağlar */
+    display: block; /* Altında boşluk bırakmaz */
+}
+       
+        
+
+        /* Responsive düzenlemeler */
+        @media (max-width: 768px) {
+            .sanatci-bilgi-ust {
+                flex-direction: column;
+                text-align: center;
+            }
+            .sanatci-detay-gorsel {
+                margin: 0 auto 20px auto; /* Ortala ve alttan boşluk ver */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Online Sanat Sergisi</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="eserler.html">Eserler</a></li>
+                <li><a href="sanatcilar.html">Sanatçılar</a></li>
+                <li><a href="hakkimizda.html">Hakkimizda</a></li>
+                <li><a href="iletisim.html">İletisim</a></li>
+                <li><a href="giris.html"></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="sanatci-detay-container">
+        <div class="sanatci-bilgi-ust">
+            <div class="sanatci-detay-gorsel">
+                <img id="sanatci-resim" src="" alt="Sanatçı Resmi">
+            </div>
+            <div class="sanatci-detay-yazi">
+                <h2 id="sanatci-adi"></h2>
+                
+                <p><strong>Doğum Yeri ve Tarihi:</strong> <span id="sanatci-dogum-deger"></span></p>
+                
+                <p><strong>Eğitim:</strong> <span id="sanatci-egitim-deger"></span></p>
+                
+                <p id="sanatci-biyografi"></p>
+            </div>
+        </div>
+
+        <div class="sanatci-eserleri">
+            <h3>Sanatçının Eserleri</h3>
+            <ul class="sanatci-eserleri-liste">
+                </ul>
+        </div>
+        
+        <a href="sanatcilar.html" class="button" 
+           style="margin-top: 30px; text-align: center; display: inline-block;">
+           Tüm Sanatçılara Geri Dön
+        </a>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Online Sanat Sergisi</p>
+    </footer>
+
+    <script src="sanatci_detay.js"></script>
+</body>
+</html>

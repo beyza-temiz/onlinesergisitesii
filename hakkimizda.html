@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakkımızda - Online Sanat Sergisi</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .about-container {
+            padding: 20px;
+            max-width: 960px;
+            margin: 20px auto;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .about-header h2 {
+            color: #007bff;
+            margin-top: 0;
+        }
+
+        .section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section h3 {
+            color: #be3a87;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .mission-vision {
+            display: flex;
+            gap: 30px;
+        }
+
+        .mission,
+        .vision {
+            flex: 1;
+        }
+
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .contact-info p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .contact-info a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Online Sanat Sergisi</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="sergiyi_kesfet.html">Sergiyi Keşfet</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="about-container">
+        <div class="about-header">
+            <h2>Hakkımızda</h2>
+            <p>Online sanat sergimize hoş geldiniz! Misyonumuz, vizyonumuz ve ekibimiz hakkında daha fazla bilgi edinin.</p>
+        </div>
+
+        <section class="section">
+            <h3>Misyonumuz ve Vizyonumuz</h3>
+            <div class="mission-vision">
+                <div class="mission">
+                    <h4>Misyonumuz</h4>
+                    <p>Sanatı herkes için erişilebilir kılmak, yeni yetenekleri desteklemek ve sanatseverlerle sanatçıları buluşturmak.</p>
+                </div>
+                <div class="vision">
+                    <h4>Vizyonumuz</h4>
+                    <p>Türkiye'nin önde gelen online sanat platformu olmak ve çağdaş sanatın gelişimine katkıda bulunmak.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h3>Ekibimiz</h3>
+            <div class="team-members">
+                <div class="team-member">
+                    <img src="person1.jpg" alt="Mert Çakır">
+                    <h4>Mert Çakır</h4>
+                    <p>Kurucu & CEO</p>
+                </div>
+                <div class="team-member">
+                    <img src="person2.jpg" alt=" Afra Demir">
+                    <h4>Afra Demir</h4>
+                    <p>Sanat Direktörü</p>
+                </div>
+                <div class="team-member">
+                    <img src="person3.jpg" alt="Can Kaya">
+                    <h4>Can Kaya</h4>
+                    <p>Teknoloji Sorumlusu</p>
+                </div>
+                </div>
+        </section>
+
+        <section class="section contact-info">
+            <h3>İletişim</h3>
+            <p>Her türlü soru, öneri ve işbirliği için bizimle iletişime geçebilirsiniz.</p>
+            <p><strong>E-posta:</strong> <a href="mailto:info@onlinesanatsergisi.com">info@onlinesanatsergisi.com</a></p>
+            <p><strong>Telefon:</strong> 0 (212) 000 00 00</p>
+            <p><strong>Adres:</strong> Örnek Mah. Örnek Cad. No:123 İstanbul, Türkiye</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Online Sanat Sergisi</p>
+    </footer>
+</body>
+</html>

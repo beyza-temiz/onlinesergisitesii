@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanatçı Ekle - Yönetici Paneli</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-panel-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-panel-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .admin-panel-header h2 {
+            color: #28a745;
+            margin-top: 0;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group textarea,
+        .form-group input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .cancel-button {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        .cancel-button:hover {
+            background-color: #c82333;
+        }
+
+        .button-group {
+            margin-top: 20px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Online Sanat Sergisi</h1>
+        <nav>
+            <ul>
+                <li><a href="yonetici_paneli.html">Yönetici Paneli</a></li>
+                </ul>
+        </nav>
+    </header>
+
+    <main class="admin-panel-container">
+        <div class="admin-panel-header">
+            <h2>Yeni Sanatçı Ekle</h2>
+        </div>
+
+        <div class="form-container">
+            <form id="sanatciEkleForm">
+                <div class="form-group">
+                    <label for="sanatciAdi">Sanatçı Adı:</label>
+                    <input type="text" id="sanatciAdi" name="sanatciAdi" required>
+                </div>
+                <div class="form-group">
+                    <label for="sanatciBiyografi">Biyografi:</label>
+                    <textarea id="sanatciBiyografi" name="sanatciBiyografi" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="sanatciDogumTarihi">Doğum Tarihi:</label>
+                    <input type="text" id="sanatciDogumTarihi" name="sanatciDogumTarihi" placeholder="YYYY-MM-DD">
+                </div>
+                <div class="form-group">
+                    <label for="sanatciDogumYeri">Doğum Yeri:</label>
+                    <input type="text" id="sanatciDogumYeri" name="sanatciDogumYeri">
+                </div>
+                <div class="form-group">
+                    <label for="sanatciEgitim">Eğitim:</label>
+                    <textarea id="sanatciEgitim" name="sanatciEgitim"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="sanatciFotografi">Fotoğraf Yükle (isteğe bağlı):</label>
+                    <input type="file" id="sanatciFotografi" name="sanatciFotografi" accept="image/*">
+                </div>
+
+                <div class="button-group">
+                    <a href="yonetici_paneli.html" class="cancel-button">İptal</a>
+                    <button type="submit" class="submit-button">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Online Sanat Sergisi</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sanatciEkleForm = document.getElementById('sanatciEkleForm');
+
+            sanatciEkleForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Sayfanın yenilenmesini engelle
+
+                // Burada form verilerini alıp sunucuya gönderme işlemleri yapılmalı
+                const sanatciAdi = document.getElementById('sanatciAdi').value;
+                const sanatciBiyografi = document.getElementById('sanatciBiyografi').value;
+                const sanatciDogumTarihi = document.getElementById('sanatciDogumTarihi').value;
+                const sanatciDogumYeri = document.getElementById('sanatciDogumYeri').value;
+                const sanatciEgitim = document.getElementById('sanatciEgitim').value;
+                const sanatciFotografi = document.getElementById('sanatciFotografi').files[0]; // Seçilen dosya (isteğe bağlı)
+
+                const formData = new FormData();
+                formData.append('sanatciAdi', sanatciAdi);
+                formData.append('sanatciBiyografi', sanatciBiyografi);
+                formData.append('sanatciDogumTarihi', sanatciDogumTarihi);
+                formData.append('sanatciDogumYeri', sanatciDogumYeri);
+                formData.append('sanatciEgitim', sanatciEgitim);
+                if (sanatciFotografi) {
+                    formData.append('sanatciFotografi', sanatciFotografi);
+                }
+
+                // Gerçek uygulamada bu veriler bir API endpointine POST edilmelidir.
+                console.log("Gönderilecek Sanatçı Verileri:", Object.fromEntries(formData));
+                alert("Sanatçı başarıyla eklendi! (Bu sadece bir örnektir)");
+
+                // Başarılı kayıt sonrası yönetici paneline yönlendirme (isteğe bağlı)
+                window.location.href = "yonetici_paneli.html";
+            });
+        });
+    </script>
+</body>
+</html>

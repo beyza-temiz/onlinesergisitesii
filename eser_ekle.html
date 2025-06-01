@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eser Ekle - Yönetici Paneli</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-panel-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-panel-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .admin-panel-header h2 {
+            color: #28a745;
+            margin-top: 0;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea,
+        .form-group select,
+        .form-group input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            resize: vertical; /* Dikey olarak yeniden boyutlandırılabilir */
+            min-height: 100px;
+        }
+
+        .submit-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .cancel-button {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        .cancel-button:hover {
+            background-color: #c82333;
+        }
+
+        .button-group {
+            margin-top: 20px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Online Sanat Sergisi</h1>
+        <nav>
+            <ul>
+                <li><a href="yonetici_paneli.html">Yönetici Paneli</a></li>
+                </ul>
+        </nav>
+    </header>
+
+    <main class="admin-panel-container">
+        <div class="admin-panel-header">
+            <h2>Yeni Eser Ekle</h2>
+        </div>
+
+        <div class="form-container">
+            <form id="eserEkleForm">
+                <div class="form-group">
+                    <label for="eserAdi">Eser Adı:</label>
+                    <input type="text" id="eserAdi" name="eserAdi" required>
+                </div>
+                <div class="form-group">
+                    <label for="sanatci">Sanatçı:</label>
+                    <select id="sanatci" name="sanatci" required>
+                        <option value="">Sanatçı Seçin</option>
+                        <option value="sanatci1">Sanatçı Adı 1</option>
+                        <option value="sanatci2">Sanatçı Adı 2</option>
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label for="eserTuru">Eser Türü:</label>
+                    <select id="eserTuru" name="eserTuru" required>
+                        <option value="">Eser Türü Seçin</option>
+                        <option value="resim">Resim</option>
+                        <option value="heykel">Heykel</option>
+                        <option value="hat-sanati">Hat Sanatı</option>
+                        <option value="dijital-sanat">Dijital Sanat</option>
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label for="eserFiyati">Fiyatı (TL):</label>
+                    <input type="number" id="eserFiyati" name="eserFiyati" min="0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="eserAciklamasi">Açıklama:</label>
+                    <textarea id="eserAciklamasi" name="eserAciklamasi"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="eserGorseli">Görsel Yükle:</label>
+                    <input type="file" id="eserGorseli" name="eserGorseli" accept="image/*" required>
+                </div>
+
+                <div class="button-group">
+                    <a href="yonetici_paneli.html" class="cancel-button">İptal</a>
+                    <button type="submit" class="submit-button">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Online Sanat Sergisi</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const eserEkleForm = document.getElementById('eserEkleForm');
+
+            eserEkleForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Sayfanın yenilenmesini engelle
+
+                // Burada form verilerini alıp sunucuya gönderme işlemleri yapılmalı
+                const eserAdi = document.getElementById('eserAdi').value;
+                const sanatci = document.getElementById('sanatci').value;
+                const eserTuru = document.getElementById('eserTuru').value;
+                const eserFiyati = document.getElementById('eserFiyati').value;
+                const eserAciklamasi = document.getElementById('eserAciklamasi').value;
+                const eserGorseli = document.getElementById('eserGorseli').files[0]; // Seçilen dosya
+
+                const formData = new FormData();
+                formData.append('eserAdi', eserAdi);
+                formData.append('sanatci', sanatci);
+                formData.append('eserTuru', eserTuru);
+                formData.append('eserFiyati', eserFiyati);
+                formData.append('eserAciklamasi', eserAciklamasi);
+                formData.append('eserGorseli', eserGorseli);
+
+                // Gerçek uygulamada bu veriler bir API endpointine POST edilmelidir.
+                console.log("Gönderilecek Form Verileri:", Object.fromEntries(formData));
+                alert("Eser başarıyla eklendi! (Bu sadece bir örnektir)");
+
+                // Başarılı kayıt sonrası yönetici paneline yönlendirme (
+                window.location.href = "yonetici_paneli.html";
+            });
+        });
+    </script>
+</body>
+</html>
